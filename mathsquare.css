@@ -1,0 +1,103 @@
+body {
+    background-color: black;
+    color:rgb(253, 252, 252);
+    user-select: none; /* supported by Chrome and Opera */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    text-align: center;
+    
+}
+
+
+.grid-container {
+    display: inline-grid;
+    /* grid-template-columns: 175px 50px 175px 50px 175px 50px 70px; */
+    grid-template-columns: 2fr .75fr 2fr .75fr 2fr .50fr 1fr;
+    width: 70%;
+    height: fit-content;
+    min-width: 500px;
+    max-width: 80vh;
+    max-height: 80vh;
+    background-color: black;
+    aspect-ratio: 1;
+}
+
+
+.mainNumber {
+    background-color: rgb(98, 97, 97);
+    /* padding: 30px 0; */
+    aspect-ratio: 1/1;
+    /* min-height: 15px;
+    max-height: 175px; */
+     /* width: 90px; */
+    }
+    
+.operator {
+        /* width:30px; */
+    background-color: rgb(8, 8, 8);
+    color: white;
+}
+
+.equals {
+    /* width: 30px; */
+    background-color: rgb(8, 8, 8);
+    color: white;
+}
+
+.values {
+    /* width: 90px; */
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
+.mainNumber, .operator, .equals, .values {
+    /* font-size: 30px; */
+    font-size: calc(2vmin + 12px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.active {
+    background-color: rgb(68, 67, 67);    
+}
+
+.pencilMark {
+    font-family: 'Courier New', monospace;
+    font-size: calc(1vmin + 12px);
+    letter-spacing: .7em;
+    
+    /* padding-left: 10%; */
+    aspect-ratio: 1;
+
+}
+
+.regularInput {
+    font-size: calc(5.5vmin + 16px);
+}
+
+#inputNumbers {
+    width: 750px;
+    height: 50px;
+
+    padding-top: 50px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.inputNumber {
+    width: 70px;
+    height: 70px;
+    border: 1px solid rgb(180, 180, 180);
+    margin: 5px;
+
+    /* Text */
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(248, 248, 248);
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
+    <script src="./mathsquare.js"></script>
+    <link rel="stylesheet" href="mathsquare.css">
+    <title>MathSquare</title>
+</head>
+<header>
+    <h1>MathSquare</h1>
+    <hr>
+</header>
+<body ng-app="myApp">
+    
+    <!-- Grid -->
+    <div ng-controller = "mainCtrl" id="numberGrid" class="grid-container">
+        <div id="mainNum0" class="grid-item mainNumber"></div>
+        <div id="op0" ng-bind = displayOp[0] class="grid-item operator"></div>
+        <div id="mainNum1" class="grid-item mainNumber"></div>
+        <div id="op1" ng-bind = displayOp[1] class="grid-item operator"></div>
+        <div id="mainNum2" class="grid-item mainNumber"></div>
+        <div id="equals" class="grid-item equals">=</div>
+        <div id="value0" ng-bind = expectedValues[0] class="grid-item values"></div>
+        <div id="op2" ng-bind = displayOp[2] class="grid-item operator"></div>
+        <div id="blank" class="grid-item"></div>
+        <div id="op3" ng-bind = displayOp[3] class="grid-item operator"></div>
+        <div id="blank" class="grid-item"></div>
+        <div id="op4" ng-bind = displayOp[4] class="grid-item operator"></div>
+        <div id="blank" class="grid-item"></div>
+        <div id="blank" class="grid-item"></div>
+        <div id="mainNum3" class="grid-item mainNumber"></div>
+        <div id="op5" ng-bind = displayOp[5] class="grid-item operator"></div>
+        <div id="mainNum4" class="grid-item mainNumber"></div>
+        <div id="op6" ng-bind = displayOp[6] class="grid-item operator"></div>
+        <div id="mainNum5" class="grid-item mainNumber"></div>
+        <div id="equals" class="grid-item equals">=</div>
+        <div id="value1" ng-bind = expectedValues[1] class="grid-item values"></div>
+        <div id="op7" ng-bind = displayOp[7] class="grid-item operator"></div>
+        <div id="blank" class="grid-item"></div>
+        <div id="op8" ng-bind = displayOp[8] class="grid-item operator"></div>
+        <div id="blank" class="grid-item"></div>
+        <div id="op9" ng-bind = displayOp[9] class="grid-item operator"></div>
+        <div id="blank" class="grid-item"></div>
+        <div id="blank" class="grid-item"></div>
+        <div id="mainNum6" class="grid-item mainNumber"></div>
+        <div id="op10" ng-bind = displayOp[10] class="grid-item operator"></div>
+        <div id="mainNum7" class="grid-item mainNumber"></div>
+        <div id="op11" ng-bind = displayOp[11] class="grid-item operator"></div>
+        <div id="mainNum8" class="grid-item mainNumber"></div>
+        <div id="blank" class="grid-item equals">=</div>
+        <div id="value2" ng-bind = expectedValues[2] class="grid-item values"></div>
+        <div id="equals" class="grid-item equals">=</div>
+        <div id="blank" class="grid-item"></div>
+        <div id="equals" class="grid-item equals">=</div>
+        <div id="blank" class="grid-item"></div>
+        <div id="equals" class="grid-item equals">=</div>
+        <div id="blank" class="grid-item"></div>
+        <div id="blank" class="grid-item"></div>
+        <div id="value3" ng-bind = expectedValues[3] class="grid-item values"></div>
+        <div id="blank" class="grid-item"></div>
+        <div id="value4" ng-bind = expectedValues[4] class="grid-item values"></div>
+        <div id="blank" class="grid-item"></div>
+        <div id="value5" ng-bind = expectedValues[5] class="grid-item values"></div>
+        <div id="blank" class="grid-item"></div>
+        <div id="blank" class="grid-item"></div>
+        <button ng-click="newGame()">New Game</button>
+    </div>
+
+    <!-- Inputs -->
+    <div id="inputNumbers"></div>
+</body>
+</html>
