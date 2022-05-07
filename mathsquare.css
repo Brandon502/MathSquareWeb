@@ -33,11 +33,25 @@ body {
     max-height: 175px; */
      /* width: 90px; */
     }
+
+.blue {
+    color: blue;
+}
+
+.red {
+    color: red;
+    }
     
+    
+
 .operator {
         /* width:30px; */
     background-color: rgb(8, 8, 8);
-    color: white;
+    /* color: white; */
+}
+
+.red {
+    color: red;
 }
 
 .equals {
@@ -79,8 +93,8 @@ body {
 }
 
 #inputNumbers {
-    width: 750px;
-    height: 50px;
+    width: 80%;
+    height: 10px;
 
     padding-top: 50px;
     margin: 0 auto;
@@ -89,13 +103,13 @@ body {
 }
 
 .inputNumber {
-    width: 70px;
-    height: 70px;
+    width: 30%;
+
+    aspect-ratio: 3/1;
     border: 1px solid rgb(180, 180, 180);
     margin: 5px;
-
     /* Text */
-    font-size: 30px;
+    font-size: 26px;
     display: flex;
     justify-content: center;
     align-items: center;
