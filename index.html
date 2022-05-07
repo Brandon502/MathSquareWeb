@@ -3,7 +3,9 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="mathsquare.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script> -->
+    <script src="./mathsquare.js"></script>
     <link rel="stylesheet" href="mathsquare.css">
     <title>MathSquare</title>
 </head>
@@ -15,11 +17,13 @@
     
     <!-- Grid -->
     <div ng-controller = "mainCtrl" id="numberGrid" class="grid-container">
-        <div id="mainNum0" class="grid-item mainNumber"></div>
+        <!-- ng-class="{true: 'regularInput, false: 'pencilMark'}[guess[0].length == 1]"  -->
+        <!-- ng-class="{true: 'red', false: 'blue'}[displayOp[1]=='+']" -->
+        <div id="mainNum0" ng-bind-html = guesses[0] class="grid-item mainNumber"></div> 
         <div id="op0" ng-bind = displayOp[0] class="grid-item operator"></div>
-        <div id="mainNum1" class="grid-item mainNumber"></div>
-        <div id="op1" ng-bind = displayOp[1] class="grid-item operator"></div>
-        <div id="mainNum2" class="grid-item mainNumber"></div>
+        <div id="mainNum1" ng-bind-html = guesses[1] class="grid-item mainNumber"></div>
+        <div id="op1" ng-bind = displayOp[1]  class="grid-item operator"></div>
+        <div id="mainNum2" ng-bind-html = guesses[2] class="grid-item mainNumber"></div>
         <div id="equals" class="grid-item equals">=</div>
         <div id="value0" ng-bind = expectedValues[0] class="grid-item values"></div>
         <div id="op2" ng-bind = displayOp[2] class="grid-item operator"></div>
@@ -29,11 +33,11 @@
         <div id="op4" ng-bind = displayOp[4] class="grid-item operator"></div>
         <div id="blank" class="grid-item"></div>
         <div id="blank" class="grid-item"></div>
-        <div id="mainNum3" class="grid-item mainNumber"></div>
+        <div id="mainNum3" ng-bind-html = guesses[3] class="grid-item mainNumber"></div>
         <div id="op5" ng-bind = displayOp[5] class="grid-item operator"></div>
-        <div id="mainNum4" class="grid-item mainNumber"></div>
+        <div id="mainNum4" ng-bind-html = guesses[4] class="grid-item mainNumber"></div>
         <div id="op6" ng-bind = displayOp[6] class="grid-item operator"></div>
-        <div id="mainNum5" class="grid-item mainNumber"></div>
+        <div id="mainNum5" ng-bind-html = guesses[5] class="grid-item mainNumber"></div>
         <div id="equals" class="grid-item equals">=</div>
         <div id="value1" ng-bind = expectedValues[1] class="grid-item values"></div>
         <div id="op7" ng-bind = displayOp[7] class="grid-item operator"></div>
@@ -43,11 +47,11 @@
         <div id="op9" ng-bind = displayOp[9] class="grid-item operator"></div>
         <div id="blank" class="grid-item"></div>
         <div id="blank" class="grid-item"></div>
-        <div id="mainNum6" class="grid-item mainNumber"></div>
+        <div id="mainNum6" ng-bind-html = guesses[6] class="grid-item mainNumber"></div>
         <div id="op10" ng-bind = displayOp[10] class="grid-item operator"></div>
-        <div id="mainNum7" class="grid-item mainNumber"></div>
+        <div id="mainNum7" ng-bind-html = guesses[7] class="grid-item mainNumber"></div>
         <div id="op11" ng-bind = displayOp[11] class="grid-item operator"></div>
-        <div id="mainNum8" class="grid-item mainNumber"></div>
+        <div id="mainNum8" ng-bind-html = guesses[8] class="grid-item mainNumber"></div>
         <div id="blank" class="grid-item equals">=</div>
         <div id="value2" ng-bind = expectedValues[2] class="grid-item values"></div>
         <div id="equals" class="grid-item equals">=</div>
@@ -64,10 +68,13 @@
         <div id="value5" ng-bind = expectedValues[5] class="grid-item values"></div>
         <div id="blank" class="grid-item"></div>
         <div id="blank" class="grid-item"></div>
-        <button ng-click="newGame()">New Game</button>
     </div>
-
+    
     <!-- Inputs -->
-    <div id="inputNumbers"></div>
+    <div><button ng-click="newGame()">New Game</button></div>
+    <div id="inputNumbers">
+        
+    </div>
+    <br><br><br><br><br><br><br><br>
 </body>
 </html>
