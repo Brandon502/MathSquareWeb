@@ -1,9 +1,12 @@
 //TODO NEXT Add ng-module inputted numbers. Erase on new game.
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', ['ngSanitize']);
 
 app.controller('mainCtrl', function($scope) {
+    $scope.guesses = ['','','','','','','','',''];
+    
     $scope.newGame = function() {
         game = createGame();
+        $scope.guesses = ['','','','','','','','',''];
         $scope.operators = game[1];
         $scope.expectedValues = game[2];
         $scope.displayOp = game[1].join('').replaceAll('*','×'); //Change * to ×
@@ -12,9 +15,73 @@ app.controller('mainCtrl', function($scope) {
     setMainListener();
     setInputListener();
     $scope.newGame();
-});
+    // Input Number Function Controls Grid Pencilmark Layout
+    function inputNumber(num, cell=activeNum) {
+       
+        cell = parseInt(cell);
+        numbers = $scope.guesses[cell];  
+        
+        numbers = numbers.replace(/&nbsp/gi, '');
+        numbers = numbers.replace(/<br>/gi,'');
+    
+        if (numbers.includes(num)) {      
+            numbers = numbers.replace(num,'')
+        }
+        else {
+            numbers += num
+        }
+       
+        if (numbers.length == 1) {
+            $scope.guesses[cell] = numbers;
+            $(`#mainNum${cell}`).addClass("regularInput");
+            $(`#mainNum${cell}`).removeClass("pencilMark");
+        }
+        else {
+            $scope.guesses[cell] = gridOutput(numbers);
+            $(`#mainNum${cell}`).removeClass("regularInput");
+            $(`#mainNum${cell}`).addClass("pencilMark");
+        }
 
+        $scope.$apply();
+    }
 
+    function clearNumber(cell=activeNum) {
+        $scope.guesses[cell] = ''
+        $scope.$apply()
+
+    }
+
+    document.addEventListener('keydown', (event) =>{
+ 
+        // console.log(event.key);
+        if (isNumber = isFinite(event.key) && activeNum != null && event.key != 0) {
+            inputNumber(event.key);
+        }
+        else {
+            switch(event.key){
+                case "ArrowLeft": 
+                    changeActiveCell(-1); 
+                    break;
+                case "Tab":
+                    event.preventDefault();
+                case "ArrowRight": 
+                    changeActiveCell(1); 
+                    break;
+                case "ArrowUp": 
+                    changeActiveCell(-3); 
+                    break;
+                case "Enter":
+                case "ArrowDown": 
+                    changeActiveCell(3); 
+                    break;
+                case "Backspace":
+                case "0":
+                case "Delete":
+                    clearNumber();
+                    break;
+            }
+        }
+    })
 var activeNum = null;
 
 function setMainListener() {
@@ -40,95 +107,78 @@ function setUpInputNums() {
 };
 
 function mainNumberClick() {
+    removePencilMarks();
+
     if (activeNum != null) {
-        previous = document.getElementById(activeNum);
-        previous.classList.remove("active");
+        $(`#mainNum${activeNum}`).removeClass("active");
     }
     this.classList.add("active");
-    activeNum = this.id;
+    activeNum = this.id.slice(-1);
 };
 
-document.addEventListener('keydown', (event) =>{
- 
-    // console.log(event.key);
-    if (isNumber = isFinite(event.key) && activeNum != null && event.key != 0) {
-        inputNumber(event.key);
-    }
-    else {
-        switch(event.key){
-            case "ArrowLeft": 
-                changeActiveCell(-1); 
-                break;
-            case "Tab":
-                event.preventDefault();
-            case "ArrowRight": 
-                changeActiveCell(1); 
-                break;
-            case "ArrowUp": 
-                changeActiveCell(-3); 
-                break;
-            case "Enter":
-            case "ArrowDown": 
-                changeActiveCell(3); 
-                break;
-        }
-    }
-})
+
 
 function inputNumberClick() {
+    
     inputNumber(this.innerHTML);
 };
 
-// Input Number Function Controls Grid Pencilmark Layout
-function inputNumber(num) {
-    cell = document.getElementById(activeNum);
-    numbers = cell.innerHTML;
-
-    
-    numbers = numbers.replace(/&nbsp;/gi, '');
-    numbers = numbers.replace(/<br>/gi,'');
-
-
-    if (numbers.includes(num)) {      
-        numbers = numbers.replace(num,'')
+//Takes a list of numbers, outputs numbers in grid format with nbsp and br added
+function gridOutput(numbers) {
+    grid = []
+    for (i = 1; i < 10; i++) {
+        if (numbers.includes(i)) {
+            grid.push(i);
+        }
+        else {
+            grid.push("&nbsp");
+        }
     }
-    else {
-        numbers += num
-    }
-   
-    if (numbers.length == 1) {
-        cell.innerHTML = numbers;
-        cell.classList.add("regularInput");
-        cell.classList.remove("pencilMark");
-    }
-    else {
-        grid = [];
-        for (i = 1; i<10; i++) {
-            if (numbers.includes(i)) {
-                grid.push(i);
-            }
-            else {
-                grid.push("&nbsp")
+    grid.splice(3,0,'<br>');
+    grid.splice(7,0,'<br>');
+
+    return grid.join('');
+}
+
+async function removePencilMarks() {
+    //Get all current answers
+    answers = []
+    removed = 0
+    $(".regularInput").each(function() {
+        answers.push($(this).text())
+    })
+
+    for (ans in answers) {
+        for (cell in $scope.guesses) {
+            if ($scope.guesses[cell].includes(answers[ans]) && $scope.guesses[cell].length > 1) {
+                inputNumber(answers[ans], cell);
+                removed += 1
             }
         }
-        grid.splice(3,0,'<br>');
-        grid.splice(7,0,'<br>');
-        cell.innerHTML = grid.join('');
-        cell.classList.remove("regularInput");
-        cell.classList.add("pencilMark");
     }
+
+    if (removed) { //recursive call
+        await new Promise(r => setTimeout(r, 300));
+        removePencilMarks();
+    } 
+
+
+    //Loop through all cells removing answers from cells with len > 1
+    // $(".pencilMark").each(function() {}
+    //     i = 0
+    //     for(ans = 0; ans < answers.length; ans++) {
+    //         if ($(this).includes(answers[ans])) {}})
 
 }
 
 //Simulates Click to change active cell
 function changeActiveCell(increment) {
-  
-    num = activeNum.slice(-1);
-    num = (parseInt(num) + increment) % 9;
+    num = parseInt(activeNum);
+    num = (num + increment) % 9;
     if (num < 0) {num += 9};
-    num = `mainNum${num}`
-    
-    document.getElementById(num).dispatchEvent(new Event('click'));
+
+    $(`#mainNum${num}`).trigger("click");
+
 }
 
 function createGame(weights = [.25, .25, .25, .25, .25, .25, .25, .25]) { //weights currently ignored
@@ -209,3 +259,5 @@ function countDecimals(value) {
 
 //     return eval(Locations[location])
 // }
+
+});
