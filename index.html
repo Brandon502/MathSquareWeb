@@ -4,7 +4,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
-    <!-- <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script> -->
     <script src="./mathsquare.js"></script>
     <link rel="stylesheet" href="mathsquare.css">
     <title>MathSquare</title>
@@ -13,17 +12,17 @@
     <h1>MathSquare</h1>
     <hr>
 </header>
-<body ng-app="myApp">
+<body ng-app="myApp" ng-controller = "mainCtrl">
     
     <!-- Grid -->
-    <div ng-controller = "mainCtrl" id="numberGrid" class="grid-container">
+    <div id="numberGrid" class="grid-container">
         <!-- ng-class="{true: 'regularInput, false: 'pencilMark'}[guess[0].length == 1]"  -->
         <!-- ng-class="{true: 'red', false: 'blue'}[displayOp[1]=='+']" -->
-        <div id="mainNum0" ng-bind-html = guesses[0] class="grid-item mainNumber"></div> 
+        <div id="mainNum0" ng-bind-html = guesses[0] ng-class="{false: 'highlighted'}[guesses[0].indexOf(highlightDigit) === -1]" class="grid-item mainNumber"></div> 
         <div id="op0" ng-bind = displayOp[0] class="grid-item operator"></div>
-        <div id="mainNum1" ng-bind-html = guesses[1] class="grid-item mainNumber"></div>
+        <div id="mainNum1" ng-bind-html = guesses[1] ng-class="{false: 'highlighted'}[guesses[1].indexOf(highlightDigit) === -1]" class="grid-item mainNumber"></div>
         <div id="op1" ng-bind = displayOp[1]  class="grid-item operator"></div>
-        <div id="mainNum2" ng-bind-html = guesses[2] class="grid-item mainNumber"></div>
+        <div id="mainNum2" ng-bind-html = guesses[2] ng-class="{false: 'highlighted'}[guesses[2].indexOf(highlightDigit) === -1]" class="grid-item mainNumber"></div>
         <div id="equals" class="grid-item equals">=</div>
         <div id="value0" ng-bind = expectedValues[0] class="grid-item values"></div>
         <div id="op2" ng-bind = displayOp[2] class="grid-item operator"></div>
@@ -33,11 +32,11 @@
         <div id="op4" ng-bind = displayOp[4] class="grid-item operator"></div>
         <div id="blank" class="grid-item"></div>
         <div id="blank" class="grid-item"></div>
-        <div id="mainNum3" ng-bind-html = guesses[3] class="grid-item mainNumber"></div>
+        <div id="mainNum3" ng-bind-html = guesses[3] ng-class="{false: 'highlighted'}[guesses[3].indexOf(highlightDigit) === -1]" class="grid-item mainNumber"></div>
         <div id="op5" ng-bind = displayOp[5] class="grid-item operator"></div>
-        <div id="mainNum4" ng-bind-html = guesses[4] class="grid-item mainNumber"></div>
+        <div id="mainNum4" ng-bind-html = guesses[4] ng-class="{false: 'highlighted'}[guesses[4].indexOf(highlightDigit) === -1]" class="grid-item mainNumber"></div>
         <div id="op6" ng-bind = displayOp[6] class="grid-item operator"></div>
-        <div id="mainNum5" ng-bind-html = guesses[5] class="grid-item mainNumber"></div>
+        <div id="mainNum5" ng-bind-html = guesses[5] ng-class="{false: 'highlighted'}[guesses[5].indexOf(highlightDigit) === -1]" class="grid-item mainNumber"></div>
         <div id="equals" class="grid-item equals">=</div>
         <div id="value1" ng-bind = expectedValues[1] class="grid-item values"></div>
         <div id="op7" ng-bind = displayOp[7] class="grid-item operator"></div>
@@ -47,11 +46,11 @@
         <div id="op9" ng-bind = displayOp[9] class="grid-item operator"></div>
         <div id="blank" class="grid-item"></div>
         <div id="blank" class="grid-item"></div>
-        <div id="mainNum6" ng-bind-html = guesses[6] class="grid-item mainNumber"></div>
+        <div id="mainNum6" ng-bind-html = guesses[6] ng-class="{false: 'highlighted'}[guesses[6].indexOf(highlightDigit) === -1]" class="grid-item mainNumber"></div>
         <div id="op10" ng-bind = displayOp[10] class="grid-item operator"></div>
-        <div id="mainNum7" ng-bind-html = guesses[7] class="grid-item mainNumber"></div>
+        <div id="mainNum7" ng-bind-html = guesses[7] ng-class="{false: 'highlighted'}[guesses[7].indexOf(highlightDigit) === -1]" class="grid-item mainNumber"></div>
         <div id="op11" ng-bind = displayOp[11] class="grid-item operator"></div>
-        <div id="mainNum8" ng-bind-html = guesses[8] class="grid-item mainNumber"></div>
+        <div id="mainNum8" ng-bind-html = guesses[8] ng-class="{false: 'highlighted'}[guesses[8].indexOf(highlightDigit) === -1]" class="grid-item mainNumber"></div>
         <div id="blank" class="grid-item equals">=</div>
         <div id="value2" ng-bind = expectedValues[2] class="grid-item values"></div>
         <div id="equals" class="grid-item equals">=</div>
@@ -71,10 +70,22 @@
     </div>
     
     <!-- Inputs -->
-    <div><button ng-click="newGame()">New Game</button></div>
     <div id="inputNumbers">
-        
+        <div id="inputNum1" ng-class="{true: 'numUsed'}[guesses.includes('1')]" class="inputNumber">1</div>
+        <div id="inputNum2" ng-class="{true: 'numUsed'}[guesses.includes('2')]" class="inputNumber">2</div>
+        <div id="inputNum3" ng-class="{true: 'numUsed'}[guesses.includes('3')]" class="inputNumber">3</div>
+        <div id="inputNum4" ng-class="{true: 'numUsed'}[guesses.includes('4')]" class="inputNumber">4</div>
+        <div id="inputNum5" ng-class="{true: 'numUsed'}[guesses.includes('5')]" class="inputNumber">5</div>
+        <div id="inputNum6" ng-class="{true: 'numUsed'}[guesses.includes('6')]" class="inputNumber">6</div>
+        <div id="inputNum7" ng-class="{true: 'numUsed'}[guesses.includes('7')]" class="inputNumber">7</div>
+        <div id="inputNum8" ng-class="{true: 'numUsed'}[guesses.includes('8')]" class="inputNumber">8</div>
+        <div id="inputNum9" ng-class="{true: 'numUsed'}[guesses.includes('9')]" class="inputNumber">9</div>
     </div>
-    <br><br><br><br><br><br><br><br>
+
+    <!-- Game Buttons -->
+    <div id="gameButtons">
+        <div id="ngButton" class="gameButton">New Game</div>
+        <div id="hint" class="gameButton">Hint</div>
+    </div>
 </body>
 </html>
