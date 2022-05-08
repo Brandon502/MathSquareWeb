@@ -8,17 +8,20 @@ body {
     -ms-user-select: none; /* Internet Explorer/Edge */
     text-align: center;
     
+    max-height: 90vh !important;
+    min-height: 90vh !important;
 }
 
 
 .grid-container {
     display: inline-grid;
     /* grid-template-columns: 175px 50px 175px 50px 175px 50px 70px; */
-    grid-template-columns: 2fr .75fr 2fr .75fr 2fr .50fr 1fr;
-    width: 70%;
+    grid-template-columns: 2fr .3fr 2fr .3fr 2fr .3fr .75fr;
+    grid-template-rows: 2fr .3fr 2fr .3fr 2fr .3fr .75fr;
+    width: 100%;
     height: fit-content;
     min-width: 500px;
-    max-width: 80vh;
+    max-width: 100vh;
     max-height: 80vh;
     background-color: black;
     aspect-ratio: 1;
@@ -29,30 +32,10 @@ body {
     background-color: rgb(98, 97, 97);
     /* padding: 30px 0; */
     aspect-ratio: 1/1;
-    /* min-height: 15px;
-    max-height: 175px; */
-     /* width: 90px; */
+    /* min-height: 2fr;
+    max-height: 2fr;  */
+    /* width: 90px; */
     }
-
-.blue {
-    color: blue;
-}
-
-.red {
-    color: red;
-    }
-    
-    
-
-.operator {
-        /* width:30px; */
-    background-color: rgb(8, 8, 8);
-    /* color: white; */
-}
-
-.red {
-    color: red;
-}
 
 .equals {
     /* width: 30px; */
@@ -64,6 +47,10 @@ body {
     /* width: 90px; */
     background-color: rgb(0, 0, 0);
     color: white;
+}
+
+.mathCorrect {
+    color:rgb(44, 237, 44)
 }
 
 .mainNumber, .operator, .equals, .values {
@@ -78,12 +65,22 @@ body {
     background-color: rgb(68, 67, 67);    
 }
 
+.highlighted {
+    background-color: rgb(184, 184, 110);
+}
+
+.numUsed {
+    background-color: rgb(35, 55, 4);
+}
+
 .pencilMark {
     font-family: 'Courier New', monospace;
-    font-size: calc(1vmin + 12px);
-    letter-spacing: .7em;
+    font-size: calc(1vmin + 16px);
+    letter-spacing: 1.5em;
+    line-height: 150%;
     
-    /* padding-left: 10%; */
+    padding-left: 21%;
+    box-sizing: border-box;
     aspect-ratio: 1;
 
 }
@@ -94,12 +91,14 @@ body {
 
 #inputNumbers {
     width: 80%;
-    height: 10px;
 
-    padding-top: 50px;
+
+    /* padding-top: 50px; */
+    
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    max-width: 800px;
 }
 
 .inputNumber {
@@ -114,4 +113,31 @@ body {
     justify-content: center;
     align-items: center;
     color: rgb(248, 248, 248);
+}
+
+#gameButtons {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 5%;
+    justify-content: center;
+    max-width: 900px;
+}
+
+.gameButton {
+    width: 45%;
+    border: 1px solid rgb(180, 180, 180);
+    margin: 5px;
+    aspect-ratio: 3;
+    /* Text */
+    font-size: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(248, 248, 248);
+}
+
+* {
+    touch-action: manipulation;
 }
